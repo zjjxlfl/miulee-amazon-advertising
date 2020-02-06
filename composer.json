@@ -5,8 +5,9 @@
   "license": "MIT",
   "require": {
     "php": ">=7.2.0",
-    "guzzlehttp/guzzle": "6.4.*",
-    "pimple/pimple": "~3.0"
+    "guzzlehttp/guzzle": "6.*",
+    "pimple/pimple": "~3.0",
+    "monolog/monolog": "^2.0@dev"
   },
   "keywords": [
     "amazon",
@@ -30,6 +31,5 @@
   ],
   "minimum-stability": "dev",
   "require-dev": {
-    "phpunit/phpunit": "^8.5@dev"
   }
 }
