@@ -6,7 +6,8 @@
   "require": {
     "php": ">=7.2.0",
     "guzzlehttp/guzzle": "6.*",
-    "pimple/pimple": "~3.0"
+    "pimple/pimple": "~3.0",
+    "monolog/monolog": "^1.22 || ^2.0"
   },
   "keywords": [
     "amazon",
