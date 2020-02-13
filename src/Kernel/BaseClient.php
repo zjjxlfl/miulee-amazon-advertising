@@ -46,8 +46,8 @@ class BaseClient
         $this->app       = $app;
         $this->requestId = time() . '-' . rand();
         $this->config    = $app['config']->toArray();
-        $this->setEndpoint($this->config['region']);
         $this->validateConfigParameters($this->config);
+        $this->setEndpoint($this->config['region']);
         if (isset($app['client']->profileId) && !empty($app['client']->profileId)) {
             $this->profileId = $app['client']->profileId;
         }
