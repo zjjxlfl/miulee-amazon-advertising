@@ -25,7 +25,8 @@ class Application extends Container
         Groups\ServiceProvider::class,
         ProductAds\ServiceProvider::class,
         Report\ServiceProvider::class,
-        Targeting\ServiceProvider::class
+        Targeting\ServiceProvider::class,
+        NegativeTargeting\ServiceProvider::class
     ];
 
     /**
