@@ -25,7 +25,7 @@ class Client extends BaseClient
      */
     public function listTargetingClauses(array $params = [])
     {
-        return $this->httpGet('/sd/targets', $params);
+        return $this->httpGet('/sd/targets', $params, false);
     }
 
     /**
@@ -40,7 +40,7 @@ class Client extends BaseClient
      */
     public function updateTargetingClauses(array $params)
     {
-        return $this->httpPut('/sd/targets', $params);
+        return $this->httpPut('/sd/targets', $params, [], false);
     }
 
     /**
@@ -55,7 +55,7 @@ class Client extends BaseClient
      */
     public function createTargetingClauses(array $params)
     {
-        return $this->httpPost('/sd/targets', $params);
+        return $this->httpPost('/sd/targets', $params, [], false);
     }
 
     /**
@@ -70,7 +70,7 @@ class Client extends BaseClient
      */
     public function getTargetingClause(string $targetId)
     {
-        return $this->httpGet('/sd/targets/' . $targetId);
+        return $this->httpGet('/sd/targets/' . $targetId, [], false);
     }
 
     /**
@@ -84,7 +84,7 @@ class Client extends BaseClient
      */
     public function deleteTargetingClause(string $targetId)
     {
-        return $this->httpDelete('/sd/targets/' . $targetId);
+        return $this->httpDelete('/sd/targets/' . $targetId, [], [], false);
     }
 
     /**
@@ -99,7 +99,7 @@ class Client extends BaseClient
      */
     public function listTargetingClausesEx(array $params = [])
     {
-        return $this->httpGet('/sd/targets/extended', $params);
+        return $this->httpGet('/sd/targets/extended', $params, false);
     }
 
     /**
@@ -114,6 +114,6 @@ class Client extends BaseClient
      */
     public function getTargetingClauseEx(string $targetId)
     {
-        return $this->httpGet('/sd/targets/extended/' . $targetId);
+        return $this->httpGet('/sd/targets/extended/' . $targetId, [], false);
     }
 }

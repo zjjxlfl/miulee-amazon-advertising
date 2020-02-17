@@ -24,7 +24,7 @@ class Client extends BaseClient
      */
     public function listTargetingClauses(array $params = [])
     {
-        return $this->httpGet('/sd/negativeTargets', $params);
+        return $this->httpGet('/sd/negativeTargets', $params, false);
     }
 
     /**
@@ -37,7 +37,7 @@ class Client extends BaseClient
      */
     public function updateNegativeTargetingClauses(array $params)
     {
-        return $this->httpPut('/sd/negativeTargets', $params);
+        return $this->httpPut('/sd/negativeTargets', $params, [], false);
     }
 
     /**
@@ -51,7 +51,7 @@ class Client extends BaseClient
      */
     public function createNegativeTargetingClauses(array $params)
     {
-        return $this->httpPost('/sd/negativeTargets', $params);
+        return $this->httpPost('/sd/negativeTargets', $params, [], false);
     }
 
     /**
@@ -66,7 +66,7 @@ class Client extends BaseClient
      */
     public function getNegativeTargetingClause(string $targetId)
     {
-        return $this->httpGet('/sd/negativeTargets/' . $targetId);
+        return $this->httpGet('/sd/negativeTargets/' . $targetId, [], false);
     }
 
     /**
@@ -80,7 +80,7 @@ class Client extends BaseClient
      */
     public function deleteNegativeTargetingClause(string $targetId)
     {
-        return $this->httpDelete('/sd/negativeTargets/' . $targetId);
+        return $this->httpDelete('/sd/negativeTargets/' . $targetId, [], [], false);
     }
 
     /**
@@ -95,7 +95,7 @@ class Client extends BaseClient
      */
     public function listNegativeTargetingClausesEx(array $params = [])
     {
-        return $this->httpGet('/sd/negativeTargets/extended', $params);
+        return $this->httpGet('/sd/negativeTargets/extended', $params, false);
     }
 
     /**
@@ -110,6 +110,6 @@ class Client extends BaseClient
      */
     public function getNegativeTargetingClauseEx(string $targetId)
     {
-        return $this->httpGet('/sd/negativeTargets/extended/' . $targetId);
+        return $this->httpGet('/sd/negativeTargets/extended/' . $targetId, [], false);
     }
 }
