@@ -178,4 +178,47 @@ class Client extends BaseClient
     {
         return $this->httpPost('/sb/negativeTargets/batchGet', ['targetIds' => $targetIds], [], false);
     }
+
+    /**
+     * listProductTargetRecommendations
+     *
+     * @param array $params
+     * @return array
+     *
+     * @author  baihe <b_aihe@163.com>
+     * @date    2020-02-18 16:22
+     */
+    public function listProductTargetRecommendations(array $params)
+    {
+        return $this->httpPost('/sb/recommendations/targets/product/list', $params, [], false);
+    }
+
+    /**
+     * listCategoryTargetRecommendations
+     *
+     * @param array $params
+     * @return array
+     *
+     * @author  baihe <b_aihe@163.com>
+     * @date    2020-02-18 16:23
+     */
+    public function listCategoryTargetRecommendations(array $params)
+    {
+        return $this->httpPost('/sb/recommendations/targets/category', $params, [], false);
+    }
+
+    /**
+     * listBrandTargetRecommendations
+     *
+     * @param array $params
+     * @return array
+     *
+     * @author  baihe <b_aihe@163.com>
+     * @date    2020-02-18 16:23
+     */
+    public function listBrandTargetRecommendations(array $params)
+    {
+        return $this->httpPost('/sb/recommendations/targets/brand', $params, [], false);
+    }
+
 }
