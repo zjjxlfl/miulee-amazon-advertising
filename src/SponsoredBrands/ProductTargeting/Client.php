@@ -220,5 +220,4 @@ class Client extends BaseClient
     {
         return $this->httpPost('/sb/recommendations/targets/brand', $params, [], false);
     }
-
 }
