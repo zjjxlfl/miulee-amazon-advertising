@@ -86,4 +86,78 @@ class Client extends BaseClient
     {
         return $this->httpDelete("/sb/keywords/{$Keyword}", [], [], false);
     }
+
+    /**
+     * updateNegativeKeywords.
+     *
+     * @param array $Keyword
+     *
+     * @return array
+     *
+     * @author  baihe <b_aihe@163.com>
+     * @date    2019-11-19 19:43
+     */
+    public function updateNegativeKeywords(array $Keyword)
+    {
+        return $this->httpPut('/sb/negativeKeywords', $Keyword, [], false);
+    }
+
+    /**
+     * createNegativeKeywords.
+     *
+     * @param array $Keyword
+     *
+     * @return array
+     *
+     * @author  baihe <b_aihe@163.com>
+     * @date    2019-11-19 19:43
+     */
+    public function createNegativeKeywords(array $Keyword)
+    {
+        return $this->httpPost('/sb/negativeKeywords', $Keyword, [], false);
+    }
+
+    /**
+     * getNegativeKeyword.
+     *
+     * @param string $keywordId
+     *
+     * @return array
+     *
+     * @author  baihe <b_aihe@163.com>
+     * @date    2019-11-19 19:42
+     */
+    public function getNegativeKeyword(string $keywordId)
+    {
+        return $this->httpGet("/sb/negativeKeywords/{$keywordId}", [], false);
+    }
+
+    /**
+     * archiveNegativeKeyword.
+     *
+     * @param string $Keyword
+     *
+     * @return array
+     *
+     * @author  baihe <b_aihe@163.com>
+     * @date    2019-11-19 19:44
+     */
+    public function archiveNegativeKeyword(string $Keyword)
+    {
+        return $this->httpDelete("/sb/negativeKeywords/{$Keyword}", [], [], false);
+    }
+
+    /**
+     * keywordRecommendations
+     *
+     * @param array $params
+     * @return array
+     *
+     * @author  baihe <b_aihe@163.com>
+     * @date    2020-02-18 15:13
+     */
+    public function keywordRecommendations(array $params)
+    {
+        return $this->httpPost("/sb/recommendations/keyword", $params, [], false);
+    }
 }
