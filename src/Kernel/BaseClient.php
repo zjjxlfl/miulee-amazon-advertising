@@ -19,15 +19,31 @@ class BaseClient
         'FE' => 'https://advertising-api-fe.amazon.com',
     ];
 
+    protected static $apiAuths = [
+        'NA' => 'https://www.amazon.com/ap/oa',
+        'EU' => 'https://eu.account.amazon.com/ap/oa',
+        'FE' => 'https://apac.account.amazon.com/ap/oa',
+    ];
+
+    protected static $apiTokenUrls = [
+        'NA' => 'https://api.amazon.com/auth/o2/token',
+        'EU' => 'https://api.amazon.co.uk/auth/o2/token',
+        'FE' => 'https://api.amazon.co.jp/auth/o2/token',
+    ];
+
+
     public $config;
 
     protected static $apiVersion = 'v2';
 
-    protected static $apiTokenUrl = 'https://api.amazon.com/auth/o2/token';
 
     public $apiEndpoint;
 
     public $apiNoVersionEndpoint;
+
+    protected static $apiTokenUrl = 'https://api.amazon.com/auth/o2/token';
+
+    public $apiAuth;
 
     public $profileId;
 
@@ -74,23 +90,33 @@ class BaseClient
         if (is_null($config)) {
             throw new InvalidArgumentException('The configuration parameter is null');
         }
-        if (empty($config['accessToken']) && empty($config['refreshToken'])) {
-            throw new InvalidConfigException('Missing required parameter accessToken or refreshToken');
-        }
         if (empty($config['clientId']) || !preg_match("/^amzn1\.application-oa2-client\.[a-z0-9]{32}$/i", $config['clientId'])) {
             throw new InvalidConfigException('Invalid parameter value for clientId.');
-        }
-        if (empty($config['region']) || !in_array($config['region'], array_keys(self::$apiEndpoints))) {
-            throw new InvalidConfigException('Invalid parameter value for region.');
         }
         if (empty($config['clientSecret']) || !preg_match('/^[a-z0-9]{64}$/i', $config['clientSecret'])) {
             throw new InvalidConfigException('Invalid parameter value for clientSecret.');
         }
-        if (!empty($config['accessToken']) && !preg_match("/^Atza(\||%7C|%7c).*$/", $config['accessToken'])) {
-            throw new InvalidConfigException('Invalid parameter value for accessToken.');
+        if (empty($config['region']) || !in_array($config['region'], array_keys(self::$apiEndpoints))) {
+            throw new InvalidConfigException('Invalid parameter value for region.');
         }
-        if (!empty($config['refreshToken']) && !preg_match("/^Atzr(\||%7C|%7c).*$/", $config['refreshToken'])) {
-            throw new InvalidConfigException('Invalid parameter value for refreshToken.');
+
+        if (!isset($config['grant_type'])) {
+            if (empty($config['accessToken']) && empty($config['refreshToken'])) {
+                throw new InvalidConfigException('Missing required parameter accessToken or refreshToken');
+            }
+            if (!empty($config['accessToken']) && !preg_match("/^Atza(\||%7C|%7c).*$/", $config['accessToken'])) {
+                throw new InvalidConfigException('Invalid parameter value for accessToken.');
+            }
+            if (!empty($config['refreshToken']) && !preg_match("/^Atzr(\||%7C|%7c).*$/", $config['refreshToken'])) {
+                throw new InvalidConfigException('Invalid parameter value for refreshToken.');
+            }
+        }else{
+            if (empty($config['redirect_uri'])) {
+                throw new InvalidConfigException('Missing required parameter redirect_uri');
+            }
+            if (empty($config['code'])) {
+                throw new InvalidConfigException('Missing required parameter code');
+            }
         }
 
         return true;
@@ -98,8 +124,10 @@ class BaseClient
 
     public function setEndpoint(string $region)
     {
-        $this->apiEndpoint          = self::$apiEndpoints[$region] . '/' . self::$apiVersion;
-        $this->apiNoVersionEndpoint = self::$apiEndpoints[$region];
+        $this->apiEndpoint          = isset(self::$apiEndpoints[$region]) ? self::$apiEndpoints[$region] . '/' . self::$apiVersion : '';
+        $this->apiNoVersionEndpoint = isset(self::$apiEndpoints[$region]) ? self::$apiEndpoints[$region] : '';
+        $this->apiAuth              = isset(self::$apiAuths[$region]) ? self::$apiAuths[$region] : '';
+        self::$apiTokenUrl          = isset(self::$apiTokenUrls[$region]) ? self::$apiTokenUrls[$region] : self::$apiTokenUrl;
     }
 
     /**
@@ -123,6 +151,42 @@ class BaseClient
             'client_secret' => $this->config['clientSecret'],
         ];
 
+        return $this->request(self::$apiTokenUrl, 'POST', ['form_params' => $params, 'headers' => $headers]);
+    }
+
+    /**
+     * getOAuthUrl
+     *
+     * @param params
+     * @return string
+     *
+     * @author  baihe <b_aihe@163.com>
+     * @date    2020-06-04 00:24
+     */
+    public function getOAuthUrl($params)
+    {
+        $params = [
+            'client_id'         => $this->config['client_id'],
+            'response_type'     => 'code',
+            'scope'             => isset($params['scope']) ? $params['scope'] : 'cpc_advertising:campaign_management',
+            'redirect_uri'      => $params['redirect_uri'],
+        ];
+        return !empty($this->apiAuth) ? $this->apiAuth . '?' . http_build_query($params) : '';
+    }
+
+    public function OAuth(array $params)
+    {
+        $headers = [
+            'Content-Type'  => 'application/x-www-form-urlencoded',
+            'charset'       => 'UTF-8',
+        ];
+        $params  = [
+            'grant_type'    => 'authorization_code',
+            'code'          => $params['code'],
+            'redirect_uri'  => $params['redirect_uri'],
+            'client_id'     => $this->config['clientId'],
+            'client_secret' => $this->config['clientSecret'],
+        ];
         return $this->request(self::$apiTokenUrl, 'POST', ['form_params' => $params, 'headers' => $headers]);
     }
 
