@@ -15,28 +15,24 @@ class Client extends BaseClient
     /**
      * authorizationURL 生成授权亚马逊url
      *
-     * @param array
-     * @return string
-     *
      * @author  baihe <b_aihe@163.com>
      * @date    2020-06-04 21:32
      */
-    public function authorizationURL(array $params): string
+    public function authorizationURL()
     {
-        return $this->getOAuthUrl($params);
+        return $this->getOAuthUrl();
     }
 
     /**
      * token 根据亚马逊生成code，获取亚马逊授权refresh_token
      *
-     * @param array $params
      * @return array
      *
      * @author  baihe <b_aihe@163.com>
      * @date    2020-06-04 21:32
      */
-    public function token(array $params): array
+    public function token(): array
     {
-        return $this->OAuth($params);
+        return $this->OAuth();
     }
 }

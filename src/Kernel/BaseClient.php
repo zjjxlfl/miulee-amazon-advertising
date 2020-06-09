@@ -28,7 +28,8 @@ class BaseClient
     protected static $apiTokenUrls = [
         'NA' => 'https://api.amazon.com/auth/o2/token',
         'EU' => 'https://api.amazon.co.uk/auth/o2/token',
-        'FE' => 'https://api.amazon.co.jp/auth/o2/token',
+        // todo 不知什么原因此api无法调用，改用美国通用的实验
+//        'FE' => 'https://api.amazon.co.jp/auth/o2/token',
     ];
 
 
@@ -114,7 +115,7 @@ class BaseClient
             if (empty($config['redirect_uri'])) {
                 throw new InvalidConfigException('Missing required parameter redirect_uri');
             }
-            if (empty($config['code'])) {
+            if ($config['grant_type'] == 'authorization_code' && empty($config['code'])) {
                 throw new InvalidConfigException('Missing required parameter code');
             }
         }
@@ -157,24 +158,36 @@ class BaseClient
     /**
      * getOAuthUrl
      *
-     * @param params
-     * @return string
+     * @return array
      *
      * @author  baihe <b_aihe@163.com>
      * @date    2020-06-04 00:24
      */
-    public function getOAuthUrl($params)
+    public function getOAuthUrl()
     {
         $params = [
-            'client_id'         => $this->config['client_id'],
+            'client_id'         => $this->config['clientId'],
             'response_type'     => 'code',
-            'scope'             => isset($params['scope']) ? $params['scope'] : 'cpc_advertising:campaign_management',
-            'redirect_uri'      => $params['redirect_uri'],
+            'scope'             => 'cpc_advertising:campaign_management',
+            'redirect_uri'      => $this->config['redirect_uri'],
         ];
-        return !empty($this->apiAuth) ? $this->apiAuth . '?' . http_build_query($params) : '';
+        return [
+            'success'   => true,
+            'code'      => 200,
+            'response'  => !empty($this->apiAuth) ? $this->apiAuth . '?' . http_build_query($params) : '',
+            'requestId' => !empty($requestId) ? $requestId : 0,
+        ];
     }
 
-    public function OAuth(array $params)
+    /**
+     * 授权获取亚马逊token
+     *
+     * @return array
+     *
+     * @author  baihe <b_aihe@163.com>
+     * @date    2020-06-04 00:24
+     */
+    public function OAuth()
     {
         $headers = [
             'Content-Type'  => 'application/x-www-form-urlencoded',
@@ -182,8 +195,8 @@ class BaseClient
         ];
         $params  = [
             'grant_type'    => 'authorization_code',
-            'code'          => $params['code'],
-            'redirect_uri'  => $params['redirect_uri'],
+            'code'          => $this->config['code'],
+            'redirect_uri'  => $this->config['redirect_uri'],
             'client_id'     => $this->config['clientId'],
             'client_secret' => $this->config['clientSecret'],
         ];
