@@ -13,7 +13,7 @@ use easyAmazonAdv\Kernel\BaseClient;
 class Client extends BaseClient
 {
     /**
-     * authorizationURL 生成授权亚马逊url
+     * authorizationURL 生成授权亚马逊url.
      *
      * @author  baihe <b_aihe@163.com>
      * @date    2020-06-04 21:32
@@ -24,7 +24,7 @@ class Client extends BaseClient
     }
 
     /**
-     * token 根据亚马逊生成code，获取亚马逊授权refresh_token
+     * token 根据亚马逊生成code，获取亚马逊授权refresh_token.
      *
      * @return array
      *

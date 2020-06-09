@@ -15,7 +15,7 @@ class Application extends Container
         AccessToken\ServiceProvider::class,
         Profiles\ServiceProvider::class,
         Portfolios\ServiceProvider::class,
-        OAuth\ServiceProvider::class
+        OAuth\ServiceProvider::class,
     ];
 
     public function __construct($config = [], array $values = [])
