@@ -28,14 +28,13 @@ class BaseClient
     protected static $apiTokenUrls = [
         'NA' => 'https://api.amazon.com/auth/o2/token',
         'EU' => 'https://api.amazon.co.uk/auth/o2/token',
-        'FE' => 'https://api.amazon.co.jp/auth/o2/token',
+        // todo 不知什么原因此api无法调用，改用美国通用的实验
+//        'FE' => 'https://api.amazon.co.jp/auth/o2/token',
     ];
-
 
     public $config;
 
     protected static $apiVersion = 'v2';
-
 
     public $apiEndpoint;
 
@@ -59,9 +58,9 @@ class BaseClient
      */
     public function __construct($app)
     {
-        $this->app       = $app;
-        $this->requestId = time() . '-' . rand();
-        $this->config    = $app['config']->toArray();
+        $this->app = $app;
+        $this->requestId = time().'-'.rand();
+        $this->config = $app['config']->toArray();
         $this->validateConfigParameters($this->config);
         $this->setEndpoint($this->config['region']);
         if (isset($app['client']->profileId) && !empty($app['client']->profileId)) {
@@ -110,11 +109,11 @@ class BaseClient
             if (!empty($config['refreshToken']) && !preg_match("/^Atzr(\||%7C|%7c).*$/", $config['refreshToken'])) {
                 throw new InvalidConfigException('Invalid parameter value for refreshToken.');
             }
-        }else{
+        } else {
             if (empty($config['redirect_uri'])) {
                 throw new InvalidConfigException('Missing required parameter redirect_uri');
             }
-            if (empty($config['code'])) {
+            if ('authorization_code' == $config['grant_type'] && empty($config['code'])) {
                 throw new InvalidConfigException('Missing required parameter code');
             }
         }
@@ -124,10 +123,10 @@ class BaseClient
 
     public function setEndpoint(string $region)
     {
-        $this->apiEndpoint          = isset(self::$apiEndpoints[$region]) ? self::$apiEndpoints[$region] . '/' . self::$apiVersion : '';
+        $this->apiEndpoint = isset(self::$apiEndpoints[$region]) ? self::$apiEndpoints[$region].'/'.self::$apiVersion : '';
         $this->apiNoVersionEndpoint = isset(self::$apiEndpoints[$region]) ? self::$apiEndpoints[$region] : '';
-        $this->apiAuth              = isset(self::$apiAuths[$region]) ? self::$apiAuths[$region] : '';
-        self::$apiTokenUrl          = isset(self::$apiTokenUrls[$region]) ? self::$apiTokenUrls[$region] : self::$apiTokenUrl;
+        $this->apiAuth = isset(self::$apiAuths[$region]) ? self::$apiAuths[$region] : '';
+        self::$apiTokenUrl = isset(self::$apiTokenUrls[$region]) ? self::$apiTokenUrls[$region] : self::$apiTokenUrl;
     }
 
     /**
@@ -142,12 +141,12 @@ class BaseClient
     {
         $headers = [
             'Content-Type' => 'application/x-www-form-urlencoded',
-            'User-Agent'   => 'AdvertisingAPI PHP Client Library v1.2',
+            'User-Agent' => 'AdvertisingAPI PHP Client Library v1.2',
         ];
-        $params  = [
-            'grant_type'    => 'refresh_token',
+        $params = [
+            'grant_type' => 'refresh_token',
             'refresh_token' => $this->config['refreshToken'],
-            'client_id'     => $this->config['clientId'],
+            'client_id' => $this->config['clientId'],
             'client_secret' => $this->config['clientSecret'],
         ];
 
@@ -155,38 +154,52 @@ class BaseClient
     }
 
     /**
-     * getOAuthUrl
+     * getOAuthUrl.
      *
-     * @param params
-     * @return string
+     * @return array
      *
      * @author  baihe <b_aihe@163.com>
      * @date    2020-06-04 00:24
      */
-    public function getOAuthUrl($params)
+    public function getOAuthUrl()
     {
         $params = [
-            'client_id'         => $this->config['client_id'],
-            'response_type'     => 'code',
-            'scope'             => isset($params['scope']) ? $params['scope'] : 'cpc_advertising:campaign_management',
-            'redirect_uri'      => $params['redirect_uri'],
+            'client_id' => $this->config['clientId'],
+            'response_type' => 'code',
+            'scope' => 'cpc_advertising:campaign_management',
+            'redirect_uri' => $this->config['redirect_uri'],
         ];
-        return !empty($this->apiAuth) ? $this->apiAuth . '?' . http_build_query($params) : '';
+
+        return [
+            'success' => true,
+            'code' => 200,
+            'response' => !empty($this->apiAuth) ? $this->apiAuth.'?'.http_build_query($params) : '',
+            'requestId' => !empty($requestId) ? $requestId : 0,
+        ];
     }
 
-    public function OAuth(array $params)
+    /**
+     * 授权获取亚马逊token.
+     *
+     * @return array
+     *
+     * @author  baihe <b_aihe@163.com>
+     * @date    2020-06-04 00:24
+     */
+    public function OAuth()
     {
         $headers = [
-            'Content-Type'  => 'application/x-www-form-urlencoded',
-            'charset'       => 'UTF-8',
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'charset' => 'UTF-8',
         ];
-        $params  = [
-            'grant_type'    => 'authorization_code',
-            'code'          => $params['code'],
-            'redirect_uri'  => $params['redirect_uri'],
-            'client_id'     => $this->config['clientId'],
+        $params = [
+            'grant_type' => 'authorization_code',
+            'code' => $this->config['code'],
+            'redirect_uri' => $this->config['redirect_uri'],
+            'client_id' => $this->config['clientId'],
             'client_secret' => $this->config['clientSecret'],
         ];
+
         return $this->request(self::$apiTokenUrl, 'POST', ['form_params' => $params, 'headers' => $headers]);
     }
 
@@ -195,7 +208,7 @@ class BaseClient
      *
      * @param string $url
      * @param string $requestType
-     * @param array $options
+     * @param array  $options
      *
      * @return array
      *
@@ -210,20 +223,20 @@ class BaseClient
             $this->sendWriteLog($this->requestId, $requestType, $url, $options, []);
             $response = $client->request($requestType, $url, $options);
             $httpCode = $response->getStatusCode();
-            $message  = \GuzzleHttp\json_decode($response->getBody(), true);
+            $message = \GuzzleHttp\json_decode($response->getBody(), true);
             if (!empty($response->getHeader('x-amz-request-id'))) {
                 $requestId = $response->getHeader('x-amz-request-id')[0];
             }
         } catch (Exception $exception) {
             $httpCode = $exception->getCode();
-            $message  = $exception->getMessage();
+            $message = $exception->getMessage();
         }
         $this->sendWriteLog($this->requestId, $requestType, $url, [], $message);
 
         return [
-            'success'   => !empty($httpCode) && preg_match("/^(2|3)\d{2}$/", $httpCode) ? true : false,
-            'code'      => $httpCode,
-            'response'  => $message,
+            'success' => !empty($httpCode) && preg_match("/^(2|3)\d{2}$/", $httpCode) ? true : false,
+            'code' => $httpCode,
+            'response' => $message,
             'requestId' => !empty($requestId) ? $requestId : 0,
         ];
     }
@@ -232,8 +245,8 @@ class BaseClient
      * httpGet.
      *
      * @param string $url
-     * @param array $data
-     * @param bool $isVersion
+     * @param array  $data
+     * @param bool   $isVersion
      *
      * @return array
      *
@@ -243,8 +256,8 @@ class BaseClient
     public function httpGet(string $url, array $data = [], $isVersion = true)
     {
         $headers = [
-            'Authorization'                   => 'bearer ' . $this->config['accessToken'],
-            'Content-Type'                    => 'application/json',
+            'Authorization' => 'bearer '.$this->config['accessToken'],
+            'Content-Type' => 'application/json',
             'Amazon-Advertising-API-ClientId' => $this->config['clientId'],
         ];
         if (!empty($this->profileId)) {
@@ -253,16 +266,16 @@ class BaseClient
 
         $requestUrl = $isVersion ? $this->apiEndpoint : $this->apiNoVersionEndpoint;
 
-        return $this->request($requestUrl . $url, 'GET', ['query' => $data, 'headers' => $headers]);
+        return $this->request($requestUrl.$url, 'GET', ['query' => $data, 'headers' => $headers]);
     }
 
     /**
      * httpPost.
      *
      * @param string $url
-     * @param array $data
-     * @param array $query
-     * @param bool $isVersion
+     * @param array  $data
+     * @param array  $query
+     * @param bool   $isVersion
      *
      * @return array
      *
@@ -272,8 +285,8 @@ class BaseClient
     public function httpPost(string $url, array $data = [], array $query = [], $isVersion = true)
     {
         $headers = [
-            'Authorization'                   => 'bearer ' . $this->config['accessToken'],
-            'Content-Type'                    => 'application/json',
+            'Authorization' => 'bearer '.$this->config['accessToken'],
+            'Content-Type' => 'application/json',
             'Amazon-Advertising-API-ClientId' => $this->config['clientId'],
         ];
         if (!empty($this->profileId)) {
@@ -282,16 +295,16 @@ class BaseClient
 
         $requestUrl = $isVersion ? $this->apiEndpoint : $this->apiNoVersionEndpoint;
 
-        return $this->request($requestUrl . $url, 'POST', ['query' => $query, 'json' => $data, 'headers' => $headers]);
+        return $this->request($requestUrl.$url, 'POST', ['query' => $query, 'json' => $data, 'headers' => $headers]);
     }
 
     /**
      * httpPut.
      *
      * @param string $url
-     * @param array $data
-     * @param array $query
-     * @param bool $isVersion
+     * @param array  $data
+     * @param array  $query
+     * @param bool   $isVersion
      *
      * @return array
      *
@@ -301,8 +314,8 @@ class BaseClient
     public function httpPut(string $url, array $data = [], array $query = [], $isVersion = true)
     {
         $headers = [
-            'Authorization'                   => 'bearer ' . $this->config['accessToken'],
-            'Content-Type'                    => 'application/json',
+            'Authorization' => 'bearer '.$this->config['accessToken'],
+            'Content-Type' => 'application/json',
             'Amazon-Advertising-API-ClientId' => $this->config['clientId'],
         ];
         if (!empty($this->profileId)) {
@@ -311,16 +324,16 @@ class BaseClient
 
         $requestUrl = $isVersion ? $this->apiEndpoint : $this->apiNoVersionEndpoint;
 
-        return $this->request($requestUrl . $url, 'PUT', ['query' => $query, 'json' => $data, 'headers' => $headers]);
+        return $this->request($requestUrl.$url, 'PUT', ['query' => $query, 'json' => $data, 'headers' => $headers]);
     }
 
     /**
      * httpDelete.
      *
      * @param string $url
-     * @param array $data
-     * @param array $query
-     * @param bool $isVersion
+     * @param array  $data
+     * @param array  $query
+     * @param bool   $isVersion
      *
      * @return array
      *
@@ -330,8 +343,8 @@ class BaseClient
     public function httpDelete(string $url, array $data = [], array $query = [], $isVersion = true)
     {
         $headers = [
-            'Authorization'                   => 'bearer ' . $this->config['accessToken'],
-            'Content-Type'                    => 'application/json',
+            'Authorization' => 'bearer '.$this->config['accessToken'],
+            'Content-Type' => 'application/json',
             'Amazon-Advertising-API-ClientId' => $this->config['clientId'],
         ];
         if (!empty($this->profileId)) {
@@ -339,15 +352,15 @@ class BaseClient
         }
         $requestUrl = $isVersion ? $this->apiEndpoint : $this->apiNoVersionEndpoint;
 
-        return $this->request($requestUrl . $url, 'DELETE', ['query' => $query, 'json' => $data, 'headers' => $headers]);
+        return $this->request($requestUrl.$url, 'DELETE', ['query' => $query, 'json' => $data, 'headers' => $headers]);
     }
 
     /**
      * httpDownload.
      *
      * @param string $url
-     * @param array $data
-     * @param bool $isVersion
+     * @param array  $data
+     * @param bool   $isVersion
      *
      * @return array
      *
@@ -357,23 +370,23 @@ class BaseClient
     public function httpDownload(string $url, array $data = [], $isVersion = true)
     {
         $headers = [
-            'Authorization'                   => 'bearer ' . $this->config['accessToken'],
-            'Content-Type'                    => 'application/json',
+            'Authorization' => 'bearer '.$this->config['accessToken'],
+            'Content-Type' => 'application/json',
             'Amazon-Advertising-API-ClientId' => $this->config['clientId'],
         ];
         if (!empty($this->profileId)) {
             $headers['Amazon-Advertising-API-Scope'] = $this->profileId;
         }
 
-        $path_file = $data['path'] . '/report/' . date('Y') . '/' . date('m') . '/' . date('d') . '/';
+        $path_file = $data['path'].'/report/'.date('Y').'/'.date('m').'/'.date('d').'/';
         if (!is_dir($path_file)) {
             mkdir($path_file, 0755, true);
         }
-        $temp_file = $path_file . $data['reportId'] . '.gz';
+        $temp_file = $path_file.$data['reportId'].'.gz';
 
-        $client     = new Client();
+        $client = new Client();
         $requestUrl = $isVersion ? $this->apiEndpoint : $this->apiNoVersionEndpoint;
-        $response   = $client->get($requestUrl . $url, ['headers' => $headers, 'query' => [], 'save_to' => $temp_file]);
+        $response = $client->get($requestUrl.$url, ['headers' => $headers, 'query' => [], 'save_to' => $temp_file]);
 
         if (200 == $response->getStatusCode() && !empty(($report = $this->read_gz($temp_file)))) {
             $report = \GuzzleHttp\json_decode($report, true);
@@ -382,16 +395,18 @@ class BaseClient
         }
 
         return [
-            'success'  => 200 == $response->getStatusCode() ? true : false,
-            'code'     => $response->getStatusCode(),
+            'success' => 200 == $response->getStatusCode() ? true : false,
+            'code' => $response->getStatusCode(),
             'response' => !empty($report) ? $report : [],
         ];
     }
 
     /**
-     * read_gz 读取压缩文件
+     * read_gz 读取压缩文件.
+     *
      * @param $gz_file
      * @param int $buffer_size
+     *
      * @return string
      *
      * @author  baihe <b_aihe@163.com>
@@ -415,8 +430,8 @@ class BaseClient
      * @param string $requestId
      * @param string $requestType
      * @param string $url
-     * @param array $options
-     * @param array $message
+     * @param array  $options
+     * @param array  $message
      *
      * @author  baihe <b_aihe@163.com>
      * @date    2020-02-06 11:18
@@ -430,14 +445,17 @@ class BaseClient
                         if ('GET' == $requestType) {
                             $this->writeLog($requestId, $requestType, $url, $options, $message);
                         }
+
                         break;
                     case 'write':
                         if (in_array($requestType, ['PUT', 'POST', 'DELETE'])) {
                             $this->writeLog($requestId, $requestType, $url, $options, $message);
                         }
+
                         break;
                     case 'all':
                         $this->writeLog($requestId, $requestType, $url, $options, $message);
+
                         break;
                 }
             }
@@ -450,8 +468,8 @@ class BaseClient
      * @param string $requestId
      * @param string $requestType
      * @param string $url
-     * @param array $options
-     * @param array $message
+     * @param array  $options
+     * @param array  $message
      *
      * @author  baihe <b_aihe@163.com>
      * @date    2020-02-06 11:18
@@ -459,12 +477,12 @@ class BaseClient
     public function writeLog(string $requestId, string $requestType, string $url, $options = [], $message = [])
     {
         $this->app['logger']->info('message:', [
-            'time'      => date('Y-m-d  H:i:s'),
+            'time' => date('Y-m-d  H:i:s'),
             'requestId' => $requestId,
-            'method'    => $requestType,
-            'uri'       => $url,
-            'request'   => $options,
-            'response'  => $message,
+            'method' => $requestType,
+            'uri' => $url,
+            'request' => $options,
+            'response' => $message,
         ]);
     }
 }
