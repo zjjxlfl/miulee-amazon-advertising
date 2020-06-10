@@ -168,6 +168,7 @@ class BaseClient
             'response_type' => 'code',
             'scope' => 'cpc_advertising:campaign_management',
             'redirect_uri' => $this->config['redirect_uri'],
+            'state' => isset($this->config['state']) ? $this->config['state'] : '',
         ];
 
         return [
