@@ -69,7 +69,7 @@ class BaseClient
     {
         $this->getClient();
         $this->app = $app;
-        $this->requestId = time() . '-' . rand();
+        $this->requestId = time().'-'.rand();
         $this->config = $app['config']->toArray();
         $this->validateConfigParameters($this->config);
         $this->setEndpoint($this->config['region']);
@@ -82,7 +82,7 @@ class BaseClient
     }
 
     /**
-     * getClient
+     * getClient.
      *
      * @author  baihe <b_aihe@163.com>
      * @date    2020/4/28 18:00
@@ -149,7 +149,7 @@ class BaseClient
 
     public function setEndpoint(string $region)
     {
-        $this->apiEndpoint = isset(self::$apiEndpoints[$region]) ? self::$apiEndpoints[$region] . '/' . self::$apiVersion : '';
+        $this->apiEndpoint = isset(self::$apiEndpoints[$region]) ? self::$apiEndpoints[$region].'/'.self::$apiVersion : '';
         $this->apiNoVersionEndpoint = isset(self::$apiEndpoints[$region]) ? self::$apiEndpoints[$region] : '';
         $this->apiAuth = isset(self::$apiAuths[$region]) ? self::$apiAuths[$region] : '';
         self::$apiTokenUrl = isset(self::$apiTokenUrls[$region]) ? self::$apiTokenUrls[$region] : self::$apiTokenUrl;
@@ -200,7 +200,7 @@ class BaseClient
         return [
             'success' => true,
             'code' => 200,
-            'response' => !empty($this->apiAuth) ? $this->apiAuth . '?' . http_build_query($params) : '',
+            'response' => !empty($this->apiAuth) ? $this->apiAuth.'?'.http_build_query($params) : '',
             'requestId' => !empty($requestId) ? $requestId : 0,
         ];
     }
@@ -235,7 +235,7 @@ class BaseClient
      *
      * @param string $url
      * @param string $requestType
-     * @param array $options
+     * @param array  $options
      *
      * @return array
      *
@@ -270,8 +270,8 @@ class BaseClient
      * httpGet.
      *
      * @param string $url
-     * @param array $data
-     * @param bool $isVersion
+     * @param array  $data
+     * @param bool   $isVersion
      *
      * @return array
      *
@@ -281,7 +281,7 @@ class BaseClient
     public function httpGet(string $url, array $data = [], $isVersion = true)
     {
         $headers = [
-            'Authorization' => 'bearer ' . $this->config['accessToken'],
+            'Authorization' => 'bearer '.$this->config['accessToken'],
             'Content-Type' => 'application/json',
             'Amazon-Advertising-API-ClientId' => $this->config['clientId'],
         ];
@@ -291,16 +291,16 @@ class BaseClient
 
         $requestUrl = $isVersion ? $this->apiEndpoint : $this->apiNoVersionEndpoint;
 
-        return $this->request($requestUrl . $url, 'GET', ['query' => $data, 'headers' => $headers, 'timeout' => 30]);
+        return $this->request($requestUrl.$url, 'GET', ['query' => $data, 'headers' => $headers, 'timeout' => 30]);
     }
 
     /**
      * httpPost.
      *
      * @param string $url
-     * @param array $data
-     * @param array $query
-     * @param bool $isVersion
+     * @param array  $data
+     * @param array  $query
+     * @param bool   $isVersion
      *
      * @return array
      *
@@ -310,7 +310,7 @@ class BaseClient
     public function httpPost(string $url, array $data = [], array $query = [], $isVersion = true)
     {
         $headers = [
-            'Authorization' => 'bearer ' . $this->config['accessToken'],
+            'Authorization' => 'bearer '.$this->config['accessToken'],
             'Content-Type' => 'application/json',
             'Amazon-Advertising-API-ClientId' => $this->config['clientId'],
         ];
@@ -320,16 +320,16 @@ class BaseClient
 
         $requestUrl = $isVersion ? $this->apiEndpoint : $this->apiNoVersionEndpoint;
 
-        return $this->request($requestUrl . $url, 'POST', ['query' => $query, 'json' => $data, 'headers' => $headers, 'timeout' => 30]);
+        return $this->request($requestUrl.$url, 'POST', ['query' => $query, 'json' => $data, 'headers' => $headers, 'timeout' => 30]);
     }
 
     /**
      * httpPut.
      *
      * @param string $url
-     * @param array $data
-     * @param array $query
-     * @param bool $isVersion
+     * @param array  $data
+     * @param array  $query
+     * @param bool   $isVersion
      *
      * @return array
      *
@@ -339,7 +339,7 @@ class BaseClient
     public function httpPut(string $url, array $data = [], array $query = [], $isVersion = true)
     {
         $headers = [
-            'Authorization' => 'bearer ' . $this->config['accessToken'],
+            'Authorization' => 'bearer '.$this->config['accessToken'],
             'Content-Type' => 'application/json',
             'Amazon-Advertising-API-ClientId' => $this->config['clientId'],
         ];
@@ -349,16 +349,16 @@ class BaseClient
 
         $requestUrl = $isVersion ? $this->apiEndpoint : $this->apiNoVersionEndpoint;
 
-        return $this->request($requestUrl . $url, 'PUT', ['query' => $query, 'json' => $data, 'headers' => $headers, 'timeout' => 30]);
+        return $this->request($requestUrl.$url, 'PUT', ['query' => $query, 'json' => $data, 'headers' => $headers, 'timeout' => 30]);
     }
 
     /**
      * httpDelete.
      *
      * @param string $url
-     * @param array $data
-     * @param array $query
-     * @param bool $isVersion
+     * @param array  $data
+     * @param array  $query
+     * @param bool   $isVersion
      *
      * @return array
      *
@@ -368,7 +368,7 @@ class BaseClient
     public function httpDelete(string $url, array $data = [], array $query = [], $isVersion = true)
     {
         $headers = [
-            'Authorization' => 'bearer ' . $this->config['accessToken'],
+            'Authorization' => 'bearer '.$this->config['accessToken'],
             'Content-Type' => 'application/json',
             'Amazon-Advertising-API-ClientId' => $this->config['clientId'],
         ];
@@ -377,15 +377,15 @@ class BaseClient
         }
         $requestUrl = $isVersion ? $this->apiEndpoint : $this->apiNoVersionEndpoint;
 
-        return $this->request($requestUrl . $url, 'DELETE', ['query' => $query, 'json' => $data, 'headers' => $headers, 'timeout' => 30]);
+        return $this->request($requestUrl.$url, 'DELETE', ['query' => $query, 'json' => $data, 'headers' => $headers, 'timeout' => 30]);
     }
 
     /**
      * httpDownload.
      *
      * @param string $url
-     * @param array $data
-     * @param bool $isVersion
+     * @param array  $data
+     * @param bool   $isVersion
      *
      * @return array
      *
@@ -395,7 +395,7 @@ class BaseClient
     public function httpDownload(string $url, array $data = [], $isVersion = true)
     {
         $headers = [
-            'Authorization' => 'bearer ' . $this->config['accessToken'],
+            'Authorization' => 'bearer '.$this->config['accessToken'],
             'Content-Type' => 'application/json',
             'Amazon-Advertising-API-ClientId' => $this->config['clientId'],
         ];
@@ -403,14 +403,14 @@ class BaseClient
             $headers['Amazon-Advertising-API-Scope'] = $this->profileId;
         }
 
-        $path_file = $data['path'] . '/report/' . date('Y') . '/' . date('m') . '/' . date('d') . '/';
+        $path_file = $data['path'].'/report/'.date('Y').'/'.date('m').'/'.date('d').'/';
         if (!is_dir($path_file)) {
             mkdir($path_file, 0755, true);
         }
-        $temp_file = $path_file . $data['reportId'] . '.gz';
+        $temp_file = $path_file.$data['reportId'].'.gz';
 
         $requestUrl = $isVersion ? $this->apiEndpoint : $this->apiNoVersionEndpoint;
-        $response = $this->client->get($requestUrl . $url, ['headers' => $headers, 'query' => [], 'save_to' => $temp_file, 'timeout' => 120]);
+        $response = $this->client->get($requestUrl.$url, ['headers' => $headers, 'query' => [], 'save_to' => $temp_file, 'timeout' => 120]);
 
         if (200 == $response->getStatusCode() && !empty(($report = $this->read_gz($temp_file)))) {
             $report = \GuzzleHttp\json_decode($report, true);
@@ -454,8 +454,8 @@ class BaseClient
      * @param string $requestId
      * @param string $requestType
      * @param string $url
-     * @param array $options
-     * @param array $message
+     * @param array  $options
+     * @param array  $message
      *
      * @author  baihe <b_aihe@163.com>
      * @date    2020-02-06 11:18
@@ -479,6 +479,7 @@ class BaseClient
                         break;
                     case 'all':
                         $this->writeLog($requestId, $requestType, $url, $options, $message);
+
                         break;
                 }
             }
@@ -491,8 +492,8 @@ class BaseClient
      * @param string $requestId
      * @param string $requestType
      * @param string $url
-     * @param array $options
-     * @param array $message
+     * @param array  $options
+     * @param array  $message
      *
      * @author  baihe <b_aihe@163.com>
      * @date    2020-02-06 11:18
@@ -510,7 +511,7 @@ class BaseClient
     }
 
     /**
-     * 返回一个匿名函数，该匿名函数返回下次重试的时间（毫秒）
+     * 返回一个匿名函数，该匿名函数返回下次重试的时间（毫秒）.
      *
      * @return \Closure
      *
@@ -525,7 +526,8 @@ class BaseClient
     }
 
     /**
-     * 返回一个匿名函数，判定是否重试
+     * 返回一个匿名函数，判定是否重试.
+     *
      * @return \Closure
      *
      * @author  baihe <b_aihe@163.com>
@@ -542,10 +544,11 @@ class BaseClient
             }
             if ($response) {
                 $status = $response->getStatusCode();
-                if ($status >= 500 || $status == 429) {
+                if ($status >= 500 || 429 == $status) {
                     return true;
                 }
             }
+
             return false;
         };
     }
