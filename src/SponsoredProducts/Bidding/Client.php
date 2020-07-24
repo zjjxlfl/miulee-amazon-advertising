@@ -54,7 +54,7 @@ class Client extends BaseClient
      */
     public function createKeywordBidRecommendations(array $params)
     {
-        return $this->httpPost('/sp/ksponsoredeywords/bidRecommendations', $params);
+        return $this->httpPost('/keywords/bidRecommendations', $params);
     }
 
     /**
