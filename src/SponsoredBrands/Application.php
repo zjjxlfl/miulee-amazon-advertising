@@ -23,7 +23,11 @@ class Application extends Container
         LoggerServiceProvider::class,
         Report\ServiceProvider::class,
         Campaigns\ServiceProvider::class,
+        CampaignsV4\ServiceProvider::class,
         Groups\ServiceProvider::class,
+        GroupsV4\ServiceProvider::class,
+        Ads\ServiceProvider::class,
+        AdCreatives\ServiceProvider::class,
         Keywords\ServiceProvider::class,
     ];
 

@@ -278,7 +278,7 @@ class BaseClient
      * @author  baihe <b_aihe@163.com>
      * @date    2019-11-20 10:53
      */
-    public function httpGet(string $url, array $data = [], $isVersion = true)
+    public function httpGet(string $url, array $data = [], $isVersion = true,$headerEx = [])
     {
         $headers = [
             'Authorization' => 'bearer '.$this->config['accessToken'],
@@ -287,6 +287,9 @@ class BaseClient
         ];
         if (!empty($this->profileId)) {
             $headers['Amazon-Advertising-API-Scope'] = $this->profileId;
+        }
+        if ($headerEx) {
+            $headers = array_merge($headers,$headerEx);
         }
 
         $requestUrl = $isVersion ? $this->apiEndpoint : $this->apiNoVersionEndpoint;
@@ -307,7 +310,7 @@ class BaseClient
      * @author  baihe <b_aihe@163.com>
      * @date    2019-11-20 10:53
      */
-    public function httpPost(string $url, array $data = [], array $query = [], $isVersion = true)
+    public function httpPost(string $url, array $data = [], array $query = [], $isVersion = true,$headerEx = [])
     {
         $headers = [
             'Authorization' => 'bearer '.$this->config['accessToken'],
@@ -316,6 +319,9 @@ class BaseClient
         ];
         if (!empty($this->profileId)) {
             $headers['Amazon-Advertising-API-Scope'] = $this->profileId;
+        }
+        if ($headerEx) {
+            $headers = array_merge($headers,$headerEx);
         }
 
         $requestUrl = $isVersion ? $this->apiEndpoint : $this->apiNoVersionEndpoint;
@@ -336,7 +342,7 @@ class BaseClient
      * @author  baihe <b_aihe@163.com>
      * @date    2019-11-20 10:54
      */
-    public function httpPut(string $url, array $data = [], array $query = [], $isVersion = true)
+    public function httpPut(string $url, array $data = [], array $query = [], $isVersion = true,$headerEx = [])
     {
         $headers = [
             'Authorization' => 'bearer '.$this->config['accessToken'],
@@ -345,6 +351,9 @@ class BaseClient
         ];
         if (!empty($this->profileId)) {
             $headers['Amazon-Advertising-API-Scope'] = $this->profileId;
+        }
+        if ($headerEx) {
+            $headers = array_merge($headers,$headerEx);
         }
 
         $requestUrl = $isVersion ? $this->apiEndpoint : $this->apiNoVersionEndpoint;
@@ -365,7 +374,7 @@ class BaseClient
      * @author  baihe <b_aihe@163.com>
      * @date    2019-11-20 10:54
      */
-    public function httpDelete(string $url, array $data = [], array $query = [], $isVersion = true)
+    public function httpDelete(string $url, array $data = [], array $query = [], $isVersion = true,$headerEx = [])
     {
         $headers = [
             'Authorization' => 'bearer '.$this->config['accessToken'],
@@ -374,6 +383,9 @@ class BaseClient
         ];
         if (!empty($this->profileId)) {
             $headers['Amazon-Advertising-API-Scope'] = $this->profileId;
+        }
+        if ($headerEx) {
+            $headers = array_merge($headers,$headerEx);
         }
         $requestUrl = $isVersion ? $this->apiEndpoint : $this->apiNoVersionEndpoint;
 
@@ -392,7 +404,7 @@ class BaseClient
      * @author  baihe <b_aihe@163.com>
      * @date    2019-11-20 10:55
      */
-    public function httpDownload(string $url, array $data = [], $isVersion = true)
+    public function httpDownload(string $url, array $data = [], $isVersion = true,$headerEx = [])
     {
         $headers = [
             'Authorization' => 'bearer '.$this->config['accessToken'],
@@ -401,6 +413,9 @@ class BaseClient
         ];
         if (!empty($this->profileId)) {
             $headers['Amazon-Advertising-API-Scope'] = $this->profileId;
+        }
+        if ($headerEx) {
+            $headers = array_merge($headers,$headerEx);
         }
 
         $path_file = $data['path'].'/report/'.date('Y').'/'.date('m').'/'.date('d').'/';

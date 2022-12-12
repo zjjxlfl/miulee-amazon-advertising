@@ -17,7 +17,9 @@
     "sdk",
     "library",
     "easyAmazonAdv",
-    "v2"
+    "v2",
+    "v3",
+    "v4"
   ],
   "autoload": {
     "psr-4": {
