@@ -97,6 +97,4 @@ class Client extends BaseClient
     {
         return $this->httpPost('/sb/beta/ads/storeSpotlight', $params, [],false,$this->header);
     }
-
-
 }
