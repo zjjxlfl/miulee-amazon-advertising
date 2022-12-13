@@ -5,7 +5,7 @@
   "license": "MIT",
   "require": {
     "php": ">=7.2.0",
-    "guzzlehttp/guzzle": "7.*",
+    "guzzlehttp/guzzle": "*",
     "pimple/pimple": "~3.0",
     "monolog/monolog": "^1.22 || ^2.0",
     "ext-zlib": "*"
@@ -32,7 +32,6 @@
       "email": "b_aihe@163.com"
     }
   ],
-  "minimum-stability": "dev",
   "require-dev": {
   }
 }
