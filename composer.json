@@ -1,6 +1,6 @@
 {
-  "name": "mystudytime/amazon-advertising",
-  "description": "Amazon Advertising API v2 Client Library",
+  "name": "yunlong/amazon-advertising",
+  "description": "Amazon Advertising API v2,v3,v4 Client Library",
   "type": "library",
   "license": "MIT",
   "require": {
