@@ -1,18 +1,12 @@
 <?php
 
-namespace easyAmazonAdv\SponsoredProducts;
+namespace easyAmazonAdv\AsynchronousReport;
 
 use easyAmazonAdv\Kernel\Provider\ClientServiceProvider;
 use easyAmazonAdv\Kernel\Provider\LoggerServiceProvider;
 use easyAmazonAdv\Kernel\Support\Collection;
 use Pimple\Container;
 
-/**
- * Class Application.
- *
- * @author  baihe <b_aihe@163.com>
- * @date    2019-11-13 23:51
- */
 class Application extends Container
 {
     /**
@@ -21,15 +15,6 @@ class Application extends Container
     protected $providers = [
         ClientServiceProvider::class,
         LoggerServiceProvider::class,
-        ProductTargeting\ServiceProvider::class,
-        ProductAds\ServiceProvider::class,
-        ProductAdsV3\ServiceProvider::class,
-        Keywords\ServiceProvider::class,
-        Groups\ServiceProvider::class,
-        GroupsV3\ServiceProvider::class,
-        Campaigns\ServiceProvider::class,
-        CampaignsV3\ServiceProvider::class,
-        Bidding\ServiceProvider::class,
         Report\ServiceProvider::class,
     ];
 
@@ -50,16 +35,6 @@ class Application extends Container
         }
     }
 
-    /**
-     * __get.
-     *
-     * @param $name
-     *
-     * @return mixed
-     *
-     * @author  baihe <b_aihe@163.com>
-     * @date    2019-11-13 23:52
-     */
     public function __get($name)
     {
         return $this[$name];

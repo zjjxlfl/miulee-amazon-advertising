@@ -36,6 +36,10 @@ class Factory
                 $name = 'SponsoredProducts';
 
                 break;
+            case 'Report':
+                $name = 'AsynchronousReport';
+
+                break;
             default:
         }
         $namespace = Kernel\Support\Str::studly($name);
