@@ -35,6 +35,7 @@ class Application extends Container
         Campaigns\ServiceProvider::class,
         CampaignsV3\ServiceProvider::class,
         Bidding\ServiceProvider::class,
+        BudgetRules\ServiceProvider::class,
         Report\ServiceProvider::class,
     ];
 
