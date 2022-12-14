@@ -294,7 +294,7 @@ class BaseClient
 
         $requestUrl = $isVersion ? $this->apiEndpoint : $this->apiNoVersionEndpoint;
 
-        return $this->request($requestUrl.$url, 'GET', ['query' => $data, 'headers' => $headers, 'timeout' => 30]);
+        return $this->request($requestUrl.$url, 'GET', ['query' => $data, 'headers' => $headers, 'timeout' => 300]);
     }
 
     /**
@@ -326,7 +326,7 @@ class BaseClient
 
         $requestUrl = $isVersion ? $this->apiEndpoint : $this->apiNoVersionEndpoint;
 
-        return $this->request($requestUrl.$url, 'POST', ['query' => $query, 'json' => $data, 'headers' => $headers, 'timeout' => 30]);
+        return $this->request($requestUrl.$url, 'POST', ['query' => $query, 'json' => $data, 'headers' => $headers, 'timeout' => 60]);
     }
 
     /**
@@ -557,10 +557,12 @@ class BaseClient
 
             if ($retries > 0) {
                 try {
+                    if($response) $rep_body=$response->getBody();
+                    else $rep_body=json_encode([]);
                     $param = [
                         'path' => $request->getUri()->getPath(),
                         'param' => \GuzzleHttp\json_decode($request->getBody(), true),
-                        'result' => \GuzzleHttp\json_decode($response->getBody(), true),
+                        'result' => \GuzzleHttp\json_decode($rep_body, true),
                     ];
                 } catch (Exception $exception) {
                     $param = [];
