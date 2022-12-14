@@ -29,6 +29,8 @@ class Application extends Container
         Ads\ServiceProvider::class,
         AdCreatives\ServiceProvider::class,
         Keywords\ServiceProvider::class,
+        ProductTargeting\ServiceProvider::class,
+        Bid\ServiceProvider::class,
     ];
 
     /**
