@@ -88,6 +88,21 @@ class Client extends BaseClient
     }
 
     /**
+     * listNegativeKeywords.
+     *
+     * @param array $Keyword
+     *
+     * @return array
+     *
+     * @author  baihe <b_aihe@163.com>
+     * @date    2019-11-19 19:44
+     */
+    public function listNegativeKeywords(array $Keyword = [])
+    {
+        return $this->httpGet('/sb/negativeKeywords', $Keyword, false);
+    }
+
+    /**
      * updateNegativeKeywords.
      *
      * @param array $Keyword

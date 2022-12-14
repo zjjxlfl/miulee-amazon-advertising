@@ -116,4 +116,19 @@ class Client extends BaseClient
     {
         return $this->httpGet('/sd/targets/extended/'.$targetId, [], false);
     }
+
+    /**
+     * listNegativeTargetingClausesEx.
+     *
+     * @param array $params
+     *
+     * @return array
+     *
+     * @author  baihe <b_aihe@163.com>
+     * @date    2019-11-14 19:50
+     */
+    public function listNegativeTargetingClausesEx(array $params = [])
+    {
+        return $this->httpGet('/sd/negativeTargets/extended', $params, false);
+    }
 }
