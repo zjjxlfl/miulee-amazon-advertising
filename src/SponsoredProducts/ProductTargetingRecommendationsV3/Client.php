@@ -6,7 +6,7 @@ use easyAmazonAdv\Kernel\BaseClient;
 
 class Client extends BaseClient
 {
-    protected $header = ['Accept' => 'application/vnd.spproducttargeting.v3+json'];
+    protected $header = ['Accept' => 'application/vnd.spproducttargeting.v3+json','Content-Type' => 'application/vnd.spproducttargeting.v3+json'];
 
     /**
      * Note: Get number of targetable asins based on refinements provided by the user.

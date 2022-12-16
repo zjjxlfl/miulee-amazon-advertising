@@ -12,7 +12,7 @@ use easyAmazonAdv\Kernel\BaseClient;
  */
 class Client extends BaseClient
 {
-    protected $header = ['Accept' => 'application/vnd.spProductAd.v3+json'];
+    protected $header = ['Accept' => 'application/vnd.spProductAd.v3+json','Content-Type' => 'application/vnd.spProductAd.v3+json'];
 
     /**
      * Author: yunlong

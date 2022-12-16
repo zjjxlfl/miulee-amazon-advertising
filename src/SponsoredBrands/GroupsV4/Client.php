@@ -6,7 +6,7 @@ use easyAmazonAdv\Kernel\BaseClient;
 
 class Client extends BaseClient
 {
-    protected $header = ['Accept' => 'application/vnd.sbadgroupresource.v4+json'];
+    protected $header = ['Accept' => 'application/vnd.sbadgroupresource.v4+json','Content-Type' => 'application/vnd.sbadgroupresource.v4+json'];
 
     /**
      * Notes:listAdGroups

@@ -6,7 +6,7 @@ use easyAmazonAdv\Kernel\BaseClient;
 
 class Client extends BaseClient
 {
-    protected $header = ['Accept' => 'application/vnd.sbadresource.v4+json'];
+    protected $header = ['Accept' => 'application/vnd.sbadresource.v4+json','Content-Type' => 'application/vnd.sbadresource.v4+json'];
 
     /**
      * Notes:listAds

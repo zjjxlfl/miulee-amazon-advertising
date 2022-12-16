@@ -6,7 +6,7 @@ use easyAmazonAdv\Kernel\BaseClient;
 
 class Client extends BaseClient
 {
-    protected $header = ['Accept' => 'application/vnd.sbcampaignresource.v4+json'];
+    protected $header = ['Accept' => 'application/vnd.sbcampaignresource.v4+json','Content-Type' => 'application/vnd.sbcampaignresource.v4+json'];
     /**
      * Notes: 获取活动列表V4版本
      * Author: yunlong

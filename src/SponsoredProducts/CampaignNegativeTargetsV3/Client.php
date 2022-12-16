@@ -6,7 +6,7 @@ use easyAmazonAdv\Kernel\BaseClient;
 
 class Client extends BaseClient
 {
-    protected $header = ['Accept' => 'application/vnd.spCampaignNegativeTargetingClause.v3+json'];
+    protected $header = ['Accept' => 'application/vnd.spCampaignNegativeTargetingClause.v3+json','Content-Type' => 'application/vnd.spCampaignNegativeTargetingClause.v3+json'];
 
     /**
      * Author: yunlong
