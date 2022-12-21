@@ -40,7 +40,7 @@ class Factory
                 $name = 'AsynchronousReport';
 
                 break;
-            case 'history':
+            case 'History':
                 $name = 'History';
 
                 break;
