@@ -40,6 +40,10 @@ class Factory
                 $name = 'AsynchronousReport';
 
                 break;
+            case 'history':
+                $name = 'History';
+
+                break;
             default:
         }
         $namespace = Kernel\Support\Str::studly($name);
