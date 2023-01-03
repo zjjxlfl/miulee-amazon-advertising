@@ -52,6 +52,7 @@ class Factory
         return new $application($config);
     }
 
+
     /**
      * __callStatic.
      *
