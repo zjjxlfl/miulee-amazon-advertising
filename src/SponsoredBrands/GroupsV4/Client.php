@@ -17,7 +17,7 @@ class Client extends BaseClient
      */
     public function listAdGroups(array $params = [])
     {
-        return $this->httpPost('/sb/beta/adGroups/list', $params, [],false,$this->header);
+        return $this->httpPost('/sb/v4/adGroups/list', $params, [],false,$this->header);
     }
 
 
@@ -30,7 +30,7 @@ class Client extends BaseClient
      */
     public function createAdGroups(array $params = [])
     {
-        return $this->httpPost('/sb/beta/adGroups', $params, [],false,$this->header);
+        return $this->httpPost('/sb/v4/adGroups', $params, [],false,$this->header);
     }
 
 
@@ -43,7 +43,7 @@ class Client extends BaseClient
      */
     public function updateAdGroups(array $params = [])
     {
-        return $this->httpPut('/sb/beta/adGroups', $params, [],false,$this->header);
+        return $this->httpPut('/sb/v4/adGroups', $params, [],false,$this->header);
     }
 
 
@@ -56,6 +56,6 @@ class Client extends BaseClient
      */
     public function deleteAdGroups(array $params = [])
     {
-        return $this->httpPost('/sb/beta/adGroups/delete', $params, [],false,$this->header);
+        return $this->httpPost('/sb/v4/adGroups/delete', $params, [],false,$this->header);
     }
 }
