@@ -16,7 +16,7 @@ class Client extends BaseClient
      */
     public function listCampaigns(array $params = [])
     {
-        return $this->httpPost('/sb/beta/campaigns/list', $params,[], false,$this->header);
+        return $this->httpPost('/sb/v4/campaigns/list', $params,[], false,$this->header);
     }
 
     /**
@@ -28,6 +28,6 @@ class Client extends BaseClient
      */
     public function createCampaigns($params)
     {
-        return $this->httpPost('/sb/beta/campaigns', $params, [], false,$this->header);
+        return $this->httpPost('/sb/v4/campaigns', $params, [], false,$this->header);
     }
 }
