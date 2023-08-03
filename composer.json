@@ -1,6 +1,6 @@
 {
 	"name" : "zjjxlfl/miulee-amazon-advertising",
-	"description" : "Amazon Advertising API v2 Client Library",
+	"description" : "Amazon Advertising API v2-v4 Client Library",
 	"type" : "library",
 	"license" : "MIT",
 	"require" : {
