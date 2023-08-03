@@ -1,38 +1,35 @@
 {
-  "name": "yunlong/amazon-advertising",
-  "description": "Amazon Advertising API v2 Client Library",
-  "type": "library",
-  "license": "MIT",
-  "require": {
-    "php": ">=7.2.0",
-    "guzzlehttp/guzzle": "*",
-    "pimple/pimple": "~3.0",
-    "monolog/monolog": "^1.22 || ^2.0",
-    "ext-zlib": "*"
-  },
-  "keywords": [
-    "amazon",
-    "Advertising",
-    "Advertising v2",
-    "sdk",
-    "library",
-    "easyAmazonAdv",
-    "v2",
-    "v3",
-    "v4"
-  ],
-  "autoload": {
-    "psr-4": {
-      "easyAmazonAdv\\": "src/"
-    }
-  },
-  "authors": [
-    {
-      "name": "bai he",
-      "email": "b_aihe@163.com"
-    }
-  ],
-  "minimum-stability": "dev",
-  "require-dev": {
-  }
+	"name" : "miulee-amazon-advertising",
+	"description" : "Amazon Advertising API v2 Client Library",
+	"type" : "library",
+	"license" : "MIT",
+	"require" : {
+		"php" : ">=7.2.0",
+		"guzzlehttp/guzzle" : "*",
+		"pimple/pimple" : "~3.0",
+		"monolog/monolog" : "^1.22 || ^2.0",
+		"ext-zlib" : "*"
+	},
+	"keywords" : [
+		"amazon",
+		"Advertising",
+		"Advertising v2",
+		"sdk",
+		"library",
+		"easyAmazonAdv",
+		"v2",
+		"v3",
+		"v4"
+	],
+	"autoload" : {
+		"psr-4" : {
+			"easyAmazonAdv\\" : "src/"
+		}
+	},
+	"authors" : [{
+			"name" : "bai he",
+			"email" : "b_aihe@163.com"
+		}
+	],
+	"minimum-stability" : "dev"
 }
