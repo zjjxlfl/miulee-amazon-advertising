@@ -14,7 +14,7 @@ pimple/pimple: ~3.0
 ## 安装
 使用composer安装
 ```
-composer require yunlong/easy-amazon-advertising
+composer require zjjxlfl/miulee-amazon-advertising
 ```
 
 ## 说明
