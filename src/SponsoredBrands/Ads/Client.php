@@ -17,7 +17,7 @@ class Client extends BaseClient
      */
     public function listAds(array $params = [])
     {
-        return $this->httpPost('/sb/beta/ads/list', $params, [],false,$this->header);
+        return $this->httpPost('/sb/v4/ads/list', $params, [],false,$this->header);
     }
 
 
@@ -30,7 +30,7 @@ class Client extends BaseClient
      */
     public function createAdsBrandVideo(array $params = [])
     {
-        return $this->httpPost('/sb/beta/ads/brandVideo', $params, [],false,$this->header);
+        return $this->httpPost('/sb/v4/ads/brandVideo', $params, [],false,$this->header);
     }
 
 
@@ -43,7 +43,7 @@ class Client extends BaseClient
      */
     public function createAdsVideo(array $params = [])
     {
-        return $this->httpPost('/sb/beta/ads/video', $params, [],false,$this->header);
+        return $this->httpPost('/sb/v4/ads/video', $params, [],false,$this->header);
     }
 
 
@@ -56,7 +56,7 @@ class Client extends BaseClient
      */
     public function updateAds(array $params = [])
     {
-        return $this->httpPut('/sb/beta/ads', $params, [],false,$this->header);
+        return $this->httpPut('/sb/v4/ads', $params, [],false,$this->header);
     }
 
 
@@ -69,7 +69,7 @@ class Client extends BaseClient
      */
     public function deleteAds(array $params = [])
     {
-        return $this->httpPost('/sb/beta/ads/delete', $params, [],false,$this->header);
+        return $this->httpPost('/sb/v4/ads/delete', $params, [],false,$this->header);
     }
 
 
@@ -82,7 +82,7 @@ class Client extends BaseClient
      */
     public function createAdsProductCollection(array $params = [])
     {
-        return $this->httpPost('/sb/beta/ads/productCollection', $params, [],false,$this->header);
+        return $this->httpPost('/sb/v4/ads/productCollection', $params, [],false,$this->header);
     }
 
 
@@ -95,6 +95,6 @@ class Client extends BaseClient
      */
     public function createAdsStoreSpotlight(array $params = [])
     {
-        return $this->httpPost('/sb/beta/ads/storeSpotlight', $params, [],false,$this->header);
+        return $this->httpPost('/sb/v4/ads/storeSpotlight', $params, [],false,$this->header);
     }
 }
