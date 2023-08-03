@@ -1,6 +1,3 @@
-![image](https://user-images.githubusercontent.com/34995516/124455031-b4fc7980-ddbb-11eb-9743-0ca23dbf7b1a.png)
-
-
 ### Synopsis
 ## 概述
 easy-amazon-advertising  是一个开源的非官方的[亚马逊广告](https://advertising.amazon.com/API/docs/en-us/)业务sdk。
