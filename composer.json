@@ -14,12 +14,11 @@
 		"amazon",
 		"Advertising",
 		"Advertising v2",
+		"Advertising v3",
+		"Advertising v4",
 		"sdk",
 		"library",
-		"easyAmazonAdv",
-		"v2",
-		"v3",
-		"v4"
+		"miuleeAmazonAdv"
 	],
 	"autoload" : {
 		"psr-4" : {
@@ -27,8 +26,8 @@
 		}
 	},
 	"authors" : [{
-			"name" : "bai he",
-			"email" : "b_aihe@163.com"
+			"name" : "zjjxlfl",
+			"email" : "zjjxlfl@qq.com"
 		}
 	],
 	"minimum-stability" : "dev"

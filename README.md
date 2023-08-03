@@ -1,9 +1,9 @@
 ### Synopsis
 ## 概述
-easy-amazon-advertising  是一个开源的非官方的[亚马逊广告](https://advertising.amazon.com/API/docs/en-us/)业务sdk。
+miulee-amazon-advertising  是一个开源的非官方的[亚马逊广告](https://advertising.amazon.com/API/docs/en-us/)业务sdk。
 
 ## 环境需求
-easy-amazon-advertising 的安装非常简单，因为它是一个标准的 [Composer](https://getcomposer.org/) 包，这意味着任何满足下列安装条件的 PHP 项目支持 Composer 都可以使用它。
+miulee-amazon-advertising 的安装非常简单，因为它是一个标准的 [Composer](https://getcomposer.org/) 包，这意味着任何满足下列安装条件的 PHP 项目支持 Composer 都可以使用它。
 
 ```
 php: >=7.2.0
