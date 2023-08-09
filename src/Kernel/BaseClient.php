@@ -418,7 +418,7 @@ class BaseClient
             $headers = array_merge($headers,$headerEx);
         }
 
-        $path_file = $data['path'].'/report/'.date('Y').'/'.date('m').'/'.date('d').'/';
+        $path_file = $data['path'].'/report/';
         if (!is_dir($path_file)) {
             mkdir($path_file, 0755, true);
         }
@@ -426,6 +426,9 @@ class BaseClient
 
         $requestUrl = $isVersion ? $this->apiEndpoint : $this->apiNoVersionEndpoint;
         $response = $this->client->get($requestUrl.$url, ['headers' => $headers, 'query' => [], 'save_to' => $temp_file, 'timeout' => 120]);
+        $body = $response->getBody();
+        file_put_contents($temp_file, $body->getContents());
+//         pri($body->getContents());
 
         if (200 == $response->getStatusCode() && !empty(($report = $this->read_gz($temp_file)))) {
             $report = \GuzzleHttp\json_decode($report, true);
