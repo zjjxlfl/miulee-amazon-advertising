@@ -92,7 +92,7 @@ class BaseClient
         // 创建 Handler
         $handlerStack = HandlerStack::create(new CurlHandler());
         // 创建重试中间件，指定决策者为 $this->retryDecider(),指定重试延迟为 $this->retryDelay()
-        $handlerStack->push(Middleware::retry($this->retryDecider(), $this->retryDelay()));
+//         $handlerStack->push(Middleware::retry($this->retryDecider(), $this->retryDelay()));
         // 指定 handler
         $this->client = new Client(['handler' => $handlerStack]);
     }
