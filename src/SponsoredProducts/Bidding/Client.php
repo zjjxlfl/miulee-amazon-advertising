@@ -71,4 +71,13 @@ class Client extends BaseClient
     {
         return $this->httpPost(' /sp/targets/bidRecommendations', $params);
     }
+    
+    public function getRecommendations(array $params)
+    {
+        return $this->httpGet("/sp/campaign/recommendations", $params,false,$this->header);
+    }
+    public function getBudgetUsage(array $params)
+    {
+        return $this->httpPost("/sp/campaigns/budget/usage", $params,[],false);
+    }
 }
