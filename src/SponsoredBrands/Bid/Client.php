@@ -26,4 +26,8 @@ class Client extends BaseClient
     {
         return $this->httpPost('/sb/recommendations/bids', $params, [], false);
     }
+    public function getBudgetUsage(array $params)
+    {
+        return $this->httpPost('/sb/campaigns/budget/usage', $params, [], false);
+    }
 }

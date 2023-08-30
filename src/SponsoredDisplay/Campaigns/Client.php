@@ -116,4 +116,8 @@ class Client extends BaseClient
     {
         return $this->httpGet('/sd/campaigns/extended', $params, false);
     }
+    public function getBudgetUsage(array $params)
+    {
+        return $this->httpPost('/sd/campaigns/budget/usage', $params, [], false);
+    }
 }
