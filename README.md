@@ -16,6 +16,11 @@ pimple/pimple: ~3.0
 ```
 composer require zjjxlfl/miulee-amazon-advertising
 ```
+## 更新
+使用composer更新
+```
+composer update zjjxlfl/miulee-amazon-advertising
+```
 
 ## 说明
 亚马逊广告业务目前的划分为三种：
