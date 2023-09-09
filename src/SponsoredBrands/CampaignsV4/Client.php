@@ -30,4 +30,17 @@ class Client extends BaseClient
     {
         return $this->httpPost('/sb/v4/campaigns', $params, [], false,$this->header);
     }
+
+    /**
+     * Notes: 更新
+     * Author: yunlong
+     * Time: 2022/12/9 15:38
+     * @param $params
+     * @return array
+     */
+    public function updateCampaigns($params)
+    {
+        return $this->httpPut('/sb/v4/campaigns', $params, [], false,$this->header);
+    }
+
 }
