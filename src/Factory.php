@@ -44,6 +44,10 @@ class Factory
                 $name = 'History';
 
                 break;
+            case 'Exports':
+                $name = 'Exports';
+
+                break;
             default:
         }
         $namespace = Kernel\Support\Str::studly($name);
