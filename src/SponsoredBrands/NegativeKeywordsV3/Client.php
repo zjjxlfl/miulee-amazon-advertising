@@ -6,8 +6,6 @@ use easyAmazonAdv\Kernel\BaseClient;
 
 class Client extends BaseClient
 {
-    protected $header = ['Accept' => 'application/vnd.spNegativeKeyword.v3+json', 'Content-Type' => 'application/vnd.spNegativeKeyword.v3+json'];
-
     /**
      * @param array $params
      * @return array
