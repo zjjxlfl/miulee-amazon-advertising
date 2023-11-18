@@ -12,7 +12,7 @@ class Client extends BaseClient
      */
     public function listNegativeKeywords(array $params)
     {
-        return $this->httpPost("/sb/negativeKeywords", $params, [], false, $this->header);
+        return $this->httpGet("/sb/negativeKeywords", $params, [], false, $this->header);
     }
 
     /**
@@ -21,7 +21,7 @@ class Client extends BaseClient
      */
     public function getNegativeKeywordClause(string $params)
     {
-        return $this->httpPost("/sb/keywords/", $params, [], false, $this->header);
+        return $this->httpGet("/sb/keywords/", $params, [], false, $this->header);
     }
 
     /**
