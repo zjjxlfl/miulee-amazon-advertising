@@ -31,7 +31,8 @@ class Application extends Container
         Keywords\ServiceProvider::class,
         ProductTargeting\ServiceProvider::class,
         Bid\ServiceProvider::class,
-        NegativeKeywordsV3\ServiceProvider::Class
+        NegativeKeywordsV3\ServiceProvider::Class,
+        NegativeTargetsV3\ServiceProvider::Class
     ];
 
     /**
