@@ -12,7 +12,7 @@ class Client extends BaseClient
      */
     public function listNegativeTargets(array $params)
     {
-        return $this->httpPost("/sb/targets/list", $params, [], false);
+        return $this->httpPost("/sb/negativeTargets/list", $params, [], false);
     }
 
     /**
@@ -21,7 +21,7 @@ class Client extends BaseClient
      */
     public function getNegativeTargetClause(string $targetId)
     {
-        return $this->httpGet('/sb/targets/' . $targetId, [], false);
+        return $this->httpGet('/sb/negativeTargets' . $targetId, [], false);
     }
 
     /**
@@ -30,7 +30,7 @@ class Client extends BaseClient
      */
     public function createNegativeTargets(array $params)
     {
-        return $this->httpPost("/sb/targets", $params, [], false);
+        return $this->httpPost("/sb/negativeTargets", $params, [], false);
     }
 
     /**
@@ -39,7 +39,7 @@ class Client extends BaseClient
      */
     public function updateNegativeTargets(array $params)
     {
-        return $this->httpPut("/sb/targets", $params, [], false);
+        return $this->httpPut("/sb/negativeTargets", $params, [], false);
     }
 
 }
