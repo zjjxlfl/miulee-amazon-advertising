@@ -21,7 +21,7 @@ class Client extends BaseClient
      */
     public function getNegativeTargetClause(string $targetId)
     {
-        return $this->httpGet('/sb/negativeTargets' . $targetId, [], false);
+        return $this->httpGet('/sb/negativeTargets/' . $targetId, [], false);
     }
 
     /**
