@@ -116,7 +116,10 @@ class Client extends BaseClient
     {
         return $this->httpGet('/sd/targets/extended/'.$targetId, [], false);
     }
-
+    public function bidRecommendations(array $params)
+    {
+        return $this->httpPost('/sd/targets/bid/recommendations', $params, [], false);
+    }
     /**
      * listNegativeTargetingClausesEx.
      *
@@ -131,4 +134,5 @@ class Client extends BaseClient
     {
         return $this->httpGet('/sd/negativeTargets/extended', $params, false);
     }
+    
 }
