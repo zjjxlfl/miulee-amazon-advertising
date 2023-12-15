@@ -116,9 +116,16 @@ class Client extends BaseClient
     {
         return $this->httpGet('/sd/targets/extended/'.$targetId, [], false);
     }
+    /**
+     * 推荐竞价
+     * author zjjxlfl
+     * 2023年12月15日
+     * @param array $params
+     */
     public function bidRecommendations(array $params)
     {
-        return $this->httpPost('/sd/targets/bid/recommendations', $params, [], false);
+        $header=['Accept' => 'application/vnd.sdtargetingrecommendations.v3.3+json','Content-Type' => 'application/vnd.sdtargetingrecommendations.v3.3+json'];
+        return $this->httpPost('/sd/targets/bid/recommendations', $params, [], false,$header);
     }
     /**
      * listNegativeTargetingClausesEx.
