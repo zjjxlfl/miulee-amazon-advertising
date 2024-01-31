@@ -54,4 +54,14 @@ class Client extends BaseClient
     {
         return $this->httpPost("/sp/keywords/delete",$params,[],false,$this->header);
     }
+    /**
+     * 关键词翻译，所有关键词都可以翻译，不限于SP
+     * author zjjxlfl
+     * 2024年1月31日
+     * @param array $params
+     */
+    public function keywordsLocalize(array $params)
+    {
+        return $this->httpPost("/keywords/localize",$params,[],false,$this->header);
+    }
 }
