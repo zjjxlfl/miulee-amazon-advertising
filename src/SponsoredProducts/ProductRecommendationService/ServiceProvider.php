@@ -1,7 +1,8 @@
 <?php
 
-namespace easyAmazonAdv\SponsoredProducts\ProductAdsV3;
+namespace easyAmazonAdv\SponsoredProducts\ProductRecommendationService;
 
+use easyAmazonAdv\SponsoredProducts\ProductAdsV3\Client;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
@@ -9,7 +10,7 @@ class ServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $pimple)
     {
-        $pimple['ProductAdsV3'] = function ($app) {
+        $pimple['ProductRecommendationService'] = function ($app) {
             return new Client($app);
         };
     }
