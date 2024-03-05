@@ -40,6 +40,7 @@ class Application extends Container
         Bidding\ServiceProvider::class,
         BudgetRules\ServiceProvider::class,
         Report\ServiceProvider::class,
+        ProductRecommendationService\ServiceProvider::class
     ];
 
     /**
