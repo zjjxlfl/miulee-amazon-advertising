@@ -22,7 +22,7 @@ class Client extends BaseClient
      */
     public function listProfiles()
     {
-        return $this->httpGet('/v2/profiles');
+        return $this->httpGet('/profiles');
     }
 
     /**
@@ -37,7 +37,7 @@ class Client extends BaseClient
      */
     public function getProfile(int $profileId)
     {
-        return $this->httpGet('/v2/profiles/'.$profileId);
+        return $this->httpGet('/profiles/' . $profileId);
     }
 
     /**
@@ -52,6 +52,7 @@ class Client extends BaseClient
      */
     public function updateProfiles(array $profile)
     {
-        return $this->httpPut('/v2/profiles', $profile);
+        return $this->httpPut('/profiles', $profile);
     }
+    
 }
