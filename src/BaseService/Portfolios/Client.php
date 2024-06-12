@@ -101,4 +101,14 @@ class Client extends BaseClient
     {
         return $this->httpPut('/portfolios/', $params);
     }
+    /**
+     * 获取广告组合预算使用情况
+     * author zjjxlfl
+     * 2024年6月12日
+     * @param array $params
+     */
+    public function getBudgetUsage(array $params)
+    {
+        return $this->httpPost('/portfolios/budget/usage/', $params, [], false);
+    }
 }
