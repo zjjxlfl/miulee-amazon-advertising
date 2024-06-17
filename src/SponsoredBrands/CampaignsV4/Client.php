@@ -6,7 +6,8 @@ use easyAmazonAdv\Kernel\BaseClient;
 
 class Client extends BaseClient
 {
-    protected $header = ['Accept' => 'application/vnd.sbcampaignresource.v4+json','Content-Type' => 'application/vnd.sbcampaignresource.v4+json'];
+    protected $header = ['Accept' => 'application/vnd.sbcampaignresource.v4+json', 'Content-Type' => 'application/vnd.sbcampaignresource.v4+json'];
+
     /**
      * Notes: 获取活动列表V4版本
      * Author: yunlong
@@ -16,7 +17,7 @@ class Client extends BaseClient
      */
     public function listCampaigns(array $params = [])
     {
-        return $this->httpPost('/sb/v4/campaigns/list', $params,[], false,$this->header);
+        return $this->httpPost('/sb/v4/campaigns/list', $params, [], false, $this->header);
     }
 
     /**
@@ -28,7 +29,7 @@ class Client extends BaseClient
      */
     public function createCampaigns($params)
     {
-        return $this->httpPost('/sb/v4/campaigns', $params, [], false,$this->header);
+        return $this->httpPost('/sb/v4/campaigns', $params, [], false, $this->header);
     }
 
     /**
@@ -40,7 +41,17 @@ class Client extends BaseClient
      */
     public function updateCampaigns($params)
     {
-        return $this->httpPut('/sb/v4/campaigns', $params, [], false,$this->header);
+        return $this->httpPut('/sb/v4/campaigns', $params, [], false, $this->header);
+    }
+
+    /**
+     * Notes: 删除
+     * @param $params
+     * @return array
+     */
+    public function deleteCampaigns($params)
+    {
+        return $this->httpPost('/sb/v4/campaigns/delete', $params, [], false, $this->header);
     }
 
 }
