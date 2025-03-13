@@ -24,7 +24,7 @@ class Client extends BaseClient
      */
     public function listPortfolios(array $data = [])
     {
-        return $this->httpGet('/portfolios');
+        return $this->httpGet('/portfolios', $data);
     }
 
     /**
@@ -39,7 +39,7 @@ class Client extends BaseClient
      */
     public function listPortfoliosEx(array $data = [])
     {
-        return $this->httpGet('/portfolios/extended');
+        return $this->httpGet('/portfolios/extended', $data);
     }
 
     /**
