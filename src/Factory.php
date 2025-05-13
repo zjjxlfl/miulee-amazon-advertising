@@ -48,6 +48,10 @@ class Factory
                 $name = 'Exports';
 
                 break;
+            case 'MarketingStream':
+                $name = 'MarketingStream';
+
+                break;
             default:
         }
         $namespace = Kernel\Support\Str::studly($name);
