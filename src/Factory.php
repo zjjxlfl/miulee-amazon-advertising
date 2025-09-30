@@ -52,6 +52,10 @@ class Factory
                 $name = 'MarketingStream';
 
                 break;
+            case 'AdsApi':
+                $name = 'AdsApi';
+
+                break;
             default:
         }
         $namespace = Kernel\Support\Str::studly($name);
