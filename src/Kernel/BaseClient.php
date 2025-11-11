@@ -118,9 +118,9 @@ class BaseClient
         if (empty($config['clientId']) || !preg_match("/^amzn1\.application-oa2-client\.[a-z0-9]{32}$/i", $config['clientId'])) {
             throw new InvalidConfigException('Invalid parameter value for clientId.');
         }
-        if (empty($config['clientSecret']) || !preg_match('/^[a-z0-9]{64}$/i', $config['clientSecret'])) {
-            throw new InvalidConfigException('Invalid parameter value for clientSecret.');
-        }
+//         if (empty($config['clientSecret']) || !preg_match('/^[a-z0-9]{64}$/i', $config['clientSecret'])) {
+//             throw new InvalidConfigException('Invalid parameter value for clientSecret.');
+//         }
         if (empty($config['region']) || !in_array($config['region'], array_keys(self::$apiEndpoints))) {
             throw new InvalidConfigException('Invalid parameter value for region.');
         }
