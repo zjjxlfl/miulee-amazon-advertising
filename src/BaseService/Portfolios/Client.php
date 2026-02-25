@@ -12,6 +12,8 @@ use easyAmazonAdv\Kernel\BaseClient;
  */
 class Client extends BaseClient
 {
+    protected $header = ['Content-Type' => 'application/vnd.spPortfolio.v3+json'];
+
     /**
      * listPortfolios.
      *
@@ -99,8 +101,9 @@ class Client extends BaseClient
      */
     public function updatePortfolios(array $params)
     {
-        return $this->httpPut('/portfolios/', $params);
+        return $this->httpPut('/portfolios/', $params, [], false, $this->header);
     }
+
     /**
      * 获取广告组合预算使用情况
      * author zjjxlfl
