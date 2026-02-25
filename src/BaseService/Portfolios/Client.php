@@ -56,7 +56,7 @@ class Client extends BaseClient
      */
     public function getPortfolio(string $portfolioId)
     {
-        return $this->httpGet('/portfolios/'.$portfolioId);
+        return $this->httpGet('/portfolios/' . $portfolioId);
     }
 
     /**
@@ -71,7 +71,7 @@ class Client extends BaseClient
      */
     public function getPortfolioEx(string $portfolioId)
     {
-        return $this->httpGet('/portfolios/extended/'.$portfolioId);
+        return $this->httpGet('/portfolios/extended/' . $portfolioId);
     }
 
     /**
