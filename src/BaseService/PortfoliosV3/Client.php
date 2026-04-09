@@ -1,0 +1,32 @@
+<?php
+
+namespace easyAmazonAdv\BaseService\PortfoliosV3;
+
+use easyAmazonAdv\Kernel\BaseClient;
+
+/**
+ * Class Client.
+ *
+ * @author  baihe <b_aihe@163.com>
+ * @date    2019-11-12 14:56
+ */
+class Client extends BaseClient
+{
+    protected $header = ['Content-Type' => 'application/vnd.spPortfolio.v3+json'];
+
+    public function listPortfolios(array $params = [])
+    {
+        return $this->httpPost('/portfolios/list', $params, [], false, $this->header);
+    }
+
+    public function createPortfolios(array $params)
+    {
+        return $this->httpPost('/portfolios/', $params, [], false, $this->header);
+    }
+
+    public function updatePortfolios(array $params)
+    {
+        return $this->httpPut('/portfolios/', $params, [], false, $this->header);
+    }
+
+}
