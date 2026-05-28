@@ -15,6 +15,7 @@ class Application extends Container
         AccessToken\ServiceProvider::class,
         Profiles\ServiceProvider::class,
         Portfolios\ServiceProvider::class,
+        PortfoliosV3\ServiceProvider::class,
         OAuth\ServiceProvider::class,
     ];
 

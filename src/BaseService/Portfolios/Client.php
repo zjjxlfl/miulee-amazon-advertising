@@ -12,6 +12,7 @@ use easyAmazonAdv\Kernel\BaseClient;
  */
 class Client extends BaseClient
 {
+
     private const PORTFOLIO_V3_HEADER = [
         'Accept' => 'application/vnd.spPortfolio.v3+json',
         'Content-Type' => 'application/vnd.spPortfolio.v3+json',
@@ -58,7 +59,7 @@ class Client extends BaseClient
      */
     public function getPortfolio(string $portfolioId)
     {
-        return $this->httpGet('/portfolios/'.$portfolioId);
+        return $this->httpGet('/portfolios/' . $portfolioId);
     }
 
     /**
@@ -73,7 +74,7 @@ class Client extends BaseClient
      */
     public function getPortfolioEx(string $portfolioId)
     {
-        return $this->httpGet('/portfolios/extended/'.$portfolioId);
+        return $this->httpGet('/portfolios/extended/' . $portfolioId);
     }
 
     /**
@@ -103,8 +104,9 @@ class Client extends BaseClient
      */
     public function updatePortfolios(array $params)
     {
-        return $this->httpPut('/portfolios/', $params);
+        return $this->httpPut('/portfolios/', $params, [], false, self::PORTFOLIO_V3_HEADER);
     }
+
     /**
      * 获取广告组合预算使用情况
      * author zjjxlfl
