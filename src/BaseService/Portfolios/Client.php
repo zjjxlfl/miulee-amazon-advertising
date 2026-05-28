@@ -12,6 +12,10 @@ use easyAmazonAdv\Kernel\BaseClient;
  */
 class Client extends BaseClient
 {
+    private const PORTFOLIO_V3_HEADER = [
+        'Accept' => 'application/vnd.spPortfolio.v3+json',
+        'Content-Type' => 'application/vnd.spPortfolio.v3+json',
+    ];
     /**
      * listPortfolios.
      *
@@ -39,7 +43,7 @@ class Client extends BaseClient
      */
     public function listPortfoliosEx(array $data = [])
     {
-        return $this->httpGet('/portfolios/extended', $data);
+        return $this->httpPost('/portfolios/list', $data, [], false, self::PORTFOLIO_V3_HEADER);
     }
 
     /**
